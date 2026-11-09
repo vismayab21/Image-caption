@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🖼️ Image Caption Generator 🤖
+#  Image Caption Generator 
 
 ### *Upload an image. Get a meaningful caption. Powered by AI.*
 
@@ -15,40 +15,40 @@
 <!-- TODO: Replace with a banner or demo GIF -->
 <img src="https://placehold.co/900x300/1f2937/ffffff?text=Image+Caption+Generator+Banner" alt="Project Banner" width="100%"/>
 
-[🚀 Demo](#-screenshots--demo) · [⚙️ Installation](#️-installation--setup) · [🏗️ Architecture](#️-project-architecture) · [🔮 Future Work](#-future-improvements)
+[ Demo](#-screenshots--demo) · [ Installation](#️-installation--setup) · [ Architecture](#️-project-architecture) · [ Future Work](#-future-improvements)
 
 </div>
 
 ---
 
-## 📖 Overview
+##  Overview
 
 > **Image Caption Generator** is an AI-powered web app that looks at an image you upload and writes a natural-language description of it.
 
 It combines **Computer Vision** and **Natural Language Generation** by sending the uploaded image, along with a text prompt, to a pretrained multimodal AI model through the **Google GenAI SDK**. The user interface is built with **Streamlit**.
 
-| 🎯 Goal | 💡 Approach | 🖥️ Interface |
+|  Goal |  Approach |  Interface |
 |:---:|:---:|:---:|
 | Turn images into meaningful text | Multimodal model called via API | Streamlit web app |
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 | | Feature | Description |
 |:---:|---|---|
-| 📤 | **Image Upload** | Upload an image through the Streamlit interface |
-| 🧠 | **AI Caption Generation** | Image + prompt sent to a multimodal model to produce a caption |
-| 🎛️ | **Controlled Creativity** | Generation uses `temperature=0.4` for focused, consistent captions |
-| 🔁 | **Automatic Retry** | Retries up to **3 attempts** on temporary API errors (`429, 500, 502, 503, 504`) |
-| ⏱️ | **Exponential Backoff** | Waits **2s, then 4s** between retries |
-| ⚠️ | **Live User Feedback** | Shows a Streamlit warning while retrying |
-| 🛡️ | **Empty-Response Handling** | Raises a clear error if the model returns no caption |
-| 🧩 | **Extra features** | <!-- TODO: add anything else your app does (download caption, multiple styles, etc.) --> |
+|  | **Image Upload** | Upload an image through the Streamlit interface |
+|  | **AI Caption Generation** | Image + prompt sent to a multimodal model to produce a caption |
+|  | **Controlled Creativity** | Generation uses `temperature=0.4` for focused, consistent captions |
+|  | **Automatic Retry** | Retries up to **3 attempts** on temporary API errors (`429, 500, 502, 503, 504`) |
+|  | **Exponential Backoff** | Waits **2s, then 4s** between retries |
+|  | **Live User Feedback** | Shows a Streamlit warning while retrying |
+|  | **Empty-Response Handling** | Raises a clear error if the model returns no caption |
+|  | **Extra features** | <!-- TODO: add anything else your app does (download caption, multiple styles, etc.) --> |
 
 ---
 
-## 🛠️ Technologies & Tools
+##  Technologies & Tools
 
 > Based on the code provided. Add any other libraries from your full project.
 
@@ -63,20 +63,20 @@ It combines **Computer Vision** and **Natural Language Generation** by sending t
 
 ---
 
-## 🏗️ Project Architecture
+##  Project Architecture
 
 ```mermaid
 flowchart LR
-    U["👤 User"] --> UI["🖥️ Streamlit Interface"]
-    UI --> APP["🐍 main.py<br/>Application Logic"]
-    APP --> RETRY["🔁 generate_caption_with_retry()"]
-    RETRY --> SDK["📦 Google GenAI SDK<br/>client.models.generate_content"]
-    SDK --> MODEL["🧠 Multimodal AI Model<br/>MODEL_NAME = TODO"]
+    U[" User"] --> UI[" Streamlit Interface"]
+    UI --> APP[" main.py<br/>Application Logic"]
+    APP --> RETRY[" generate_caption_with_retry()"]
+    RETRY --> SDK[" Google GenAI SDK<br/>client.models.generate_content"]
+    SDK --> MODEL[" Multimodal AI Model<br/>MODEL_NAME = TODO"]
     MODEL --> SDK
     SDK --> RETRY
     RETRY --> APP
     APP --> UI
-    UI --> OUT["📝 Generated Caption"]
+    UI --> OUT[" Generated Caption"]
 
     style U fill:#e0f2fe,stroke:#0284c7
     style UI fill:#fee2e2,stroke:#ef4444
@@ -89,25 +89,25 @@ flowchart LR
 
 ---
 
-## 🔄 Workflow: From Upload to Caption
+##  Workflow: From Upload to Caption
 
 ```mermaid
 flowchart TD
-    A(["📤 User uploads image"]) --> B["🖼️ Image loaded in app<br/>(loading method: TODO)"]
-    B --> C["✍️ Prompt prepared<br/>(prompt text: TODO)"]
-    C --> D["🚀 generate_caption_with_retry(prompt, image)"]
-    D --> E["📡 API call<br/>temperature = 0.4"]
+    A([" User uploads image"]) --> B[" Image loaded in app<br/>(loading method: TODO)"]
+    B --> C[" Prompt prepared<br/>(prompt text: TODO)"]
+    C --> D[" generate_caption_with_retry(prompt, image)"]
+    D --> E[" API call<br/>temperature = 0.4"]
     E --> F{"Response OK?"}
 
     F -- "Yes" --> G{"response.text empty?"}
-    G -- "No" --> H(["✅ Caption displayed to user"])
-    G -- "Yes" --> I["❌ ValueError:<br/>empty caption"]
+    G -- "No" --> H([" Caption displayed to user"])
+    G -- "Yes" --> I[" ValueError:<br/>empty caption"]
 
     F -- "APIError" --> J{"Code in<br/>429, 500, 502, 503, 504?"}
-    J -- "No" --> K["❌ Error raised"]
+    J -- "No" --> K[" Error raised"]
     J -- "Yes" --> L{"Last attempt?"}
     L -- "Yes" --> K
-    L -- "No" --> M["⚠️ st.warning<br/>wait 2s, then 4s"]
+    L -- "No" --> M[" st.warning<br/>wait 2s, then 4s"]
     M --> E
 
     style A fill:#dbeafe,stroke:#2563eb
@@ -117,7 +117,7 @@ flowchart TD
     style M fill:#fef9c3,stroke:#ca8a04
 ```
 
-### ⏳ Request Sequence
+###  Request Sequence
 
 ```mermaid
 sequenceDiagram
@@ -147,32 +147,32 @@ sequenceDiagram
 
 ---
 
-## 🧠 Model Architecture & How It Works
+##  Model Architecture & How It Works
 
 This project does **not** train its own captioning network in the code provided. It sends the image and a text prompt to a **pretrained multimodal model** hosted behind the Google GenAI API, and the model returns the caption.
 
 ```mermaid
 flowchart LR
-    subgraph INPUT["📥 Inputs"]
-        P["✍️ Text Prompt"]
-        I["🖼️ Image"]
+    subgraph INPUT[" Inputs"]
+        P[" Text Prompt"]
+        I[" Image"]
     end
 
-    subgraph MODEL["🧠 Pretrained Multimodal Model (hosted)"]
+    subgraph MODEL[" Pretrained Multimodal Model (hosted)"]
         direction TB
         M1["Image + text understanding"]
         M2["Text generation"]
         M1 --> M2
     end
 
-    subgraph CONFIG["🎛️ Generation Config"]
+    subgraph CONFIG[" Generation Config"]
         T["temperature = 0.4"]
     end
 
     P --> MODEL
     I --> MODEL
     CONFIG --> MODEL
-    MODEL --> O["📝 Caption (response.text)"]
+    MODEL --> O[" Caption (response.text)"]
 
     style INPUT fill:#e0f2fe,stroke:#0284c7
     style MODEL fill:#dcfce7,stroke:#16a34a
@@ -191,16 +191,16 @@ flowchart LR
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
-### 1️⃣ Clone the repository
+### 1 Clone the repository
 
 ```bash
 git clone https://github.com/<your-username>/<your-repo-name>.git
 cd <your-repo-name>
 ```
 
-### 2️⃣ Create a virtual environment *(recommended)*
+### 2️ Create a virtual environment *(recommended)*
 
 ```bash
 python -m venv venv
@@ -212,13 +212,13 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-### 3️⃣ Install dependencies
+### 3️ Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-> ⚠️ `requirements.txt` was empty in the uploaded files. Based on the code, it should include at least:
+>  `requirements.txt` was empty in the uploaded files. Based on the code, it should include at least:
 >
 > ```text
 > streamlit
@@ -226,16 +226,16 @@ pip install -r requirements.txt
 > # TODO: add any other libraries your project imports (e.g. an image library)
 > ```
 
-### 4️⃣ Configure your API key
+### 4️ Configure your API key
 
 ```bash
 # TODO: replace with the exact method your code uses
 export <API_KEY_ENV_VAR>="your_api_key_here"
 ```
 
-> 🔐 Never commit your API key to GitHub. Keep it in an environment variable or a `.env` file listed in `.gitignore`.
+>  Never commit your API key to GitHub. Keep it in an environment variable or a `.env` file listed in `.gitignore`.
 
-### 5️⃣ Run the app
+### 5️ Run the app
 
 ```bash
 streamlit run main.py
@@ -245,7 +245,7 @@ Then open **http://localhost:8501** in your browser.
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 > Only `main.py` and `requirements.txt` were provided. Update the rest to match your repo.
 
@@ -265,9 +265,9 @@ Image-Caption-Generator/
 
 ---
 
-## 🖼️ Sample Input & Output
+##  Sample Input & Output
 
-| 📥 Input Image | 📤 Generated Caption |
+|  Input Image |  Generated Caption |
 |:---:|:---|
 | <img src="https://placehold.co/300x200/e0f2fe/0284c7?text=Sample+Image+1" width="300"/> | `TODO: paste the caption your app generated` |
 | <img src="https://placehold.co/300x200/dcfce7/16a34a?text=Sample+Image+2" width="300"/> | `TODO: paste the caption your app generated` |
@@ -275,48 +275,48 @@ Image-Caption-Generator/
 
 ---
 
-## 📸 Screenshots & Demo
+##  Screenshots & Demo
 
 <div align="center">
 
-| 🏠 Home Page | 📤 Image Upload |
+|  Home Page |  Image Upload |
 |:---:|:---:|
 | <img src="https://placehold.co/450x280/1f2937/ffffff?text=Home+Page" width="450"/> | <img src="https://placehold.co/450x280/1f2937/ffffff?text=Upload+Image" width="450"/> |
 
-| ✅ Caption Result | ⚠️ Retry Warning |
+|  Caption Result |  Retry Warning |
 |:---:|:---:|
 | <img src="https://placehold.co/450x280/1f2937/ffffff?text=Caption+Result" width="450"/> | <img src="https://placehold.co/450x280/1f2937/ffffff?text=Retry+Warning" width="450"/> |
 
-🎥 **Live Demo:** `TODO: add link` &nbsp;|&nbsp; 🎬 **Video Walkthrough:** `TODO: add link`
+ **Live Demo:** `TODO: add link` &nbsp;|&nbsp;  **Video Walkthrough:** `TODO: add link`
 
 </div>
 
 ---
 
-## 🔮 Future Improvements
+##  Future Improvements
 
-- [ ] 🌐 Multi-language caption support
-- [ ] 🎨 Selectable caption styles (short, detailed, creative)
-- [ ] 📦 Batch caption generation for multiple images
-- [ ] 💾 Download or copy captions and export to CSV/JSON
-- [ ] 🔊 Text-to-speech for generated captions
-- [ ] 📱 Improved mobile-friendly layout
-- [ ] ☁️ Cloud deployment (e.g. Streamlit Community Cloud)
-- [ ] 🧪 Automated tests for the retry logic
-- [ ] ➕ `TODO: add your own ideas`
+- [ ]  Multi-language caption support
+- [ ]  Selectable caption styles (short, detailed, creative)
+- [ ]  Batch caption generation for multiple images
+- [ ]  Download or copy captions and export to CSV/JSON
+- [ ]  Text-to-speech for generated captions
+- [ ]  Improved mobile-friendly layout
+- [ ]  Cloud deployment (e.g. Streamlit Community Cloud)
+- [ ]  Automated tests for the retry logic
+- [ ]  `TODO: add your own ideas`
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 <div align="center">
 
 | | |
 |:---:|:---|
-| 👤 **Name** | `TODO: Your Name` |
-| 📧 **Email** | `TODO: your.email@example.com` |
-| 💼 **LinkedIn** | `TODO: link` |
-| 🐙 **GitHub** | `TODO: https://github.com/<your-username>` |
+|  **Name** | `TODO: Your Name` |
+|  **Email** | `TODO: your.email@example.com` |
+|  **LinkedIn** | `TODO: link` |
+|  **GitHub** | `TODO: https://github.com/<your-username>` |
 
 </div>
 
